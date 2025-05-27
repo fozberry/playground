@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homelands Game</title>
+    <style>
+        /* Basic styling to make it look nice */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Make body at least full height of viewport */
+            margin: 0;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        h1 {
+            color: #4a90e2; /* A nice blue */
+            font-size: 3em;
+            margin-bottom: 30px;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 1.5em;
+            background-color: #5cb85c; /* Green button */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+    </style>
+</head>
+<body>
+    <h1>Homelands</h1>
+    <button id="playButton">Play</button>
+
+    <script>
+        // JavaScript to handle the button click
+        document.getElementById('playButton').addEventListener('click', function() {
+            alert('Welcome to Homelands! Let the game begin!');
+            // Later, you'll add code here to switch to the actual game screen
+        });
+
+        console.log('Homelands home screen loaded.');
+    </script>
+</body>
+</html>
