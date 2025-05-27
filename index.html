@@ -5,50 +5,142 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homelands Game</title>
     <style>
-        /* Basic styling to make it look nice */
+        /* Basic styling */
         body {
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh; /* Make body at least full height of viewport */
+            min-height: 100vh;
             margin: 0;
             background-color: #f0f0f0;
             color: #333;
         }
+        .screen-section {
+            /* Common style for different screens */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
         h1 {
-            color: #4a90e2; /* A nice blue */
+            color: #4a90e2;
             font-size: 3em;
             margin-bottom: 30px;
         }
         button {
             padding: 15px 30px;
             font-size: 1.5em;
-            background-color: #5cb85c; /* Green button */
+            background-color: #5cb85c;
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin: 10px; /* Space between buttons */
         }
         button:hover {
             background-color: #4cae4c;
         }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 1.2em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 10px;
+            width: 250px;
+        }
+        label {
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 5px;
+        }
+
+        /* Initially hide game selection and join input */
+        #gameModeSelection, #joinGameInput {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <h1>Homelands</h1>
-    <button id="playButton">Play</button>
+    <div id="homeScreen" class="screen-section">
+        <h1>Homelands</h1>
+        <button id="playButton">Play</button>
+    </div>
+
+    <div id="gameModeSelection" class="screen-section">
+        <h2>Choose Game Mode</h2>
+        <button id="newGameButton">New Game</button>
+        <button id="joinGameButton">Join Game</button>
+    </div>
+
+    <div id="joinGameInput" class="screen-section">
+        <h2>Join Existing Game</h2>
+        <label for="gameIdInput">Enter Game ID:</label>
+        <input type="text" id="gameIdInput" placeholder="e.g., ABC-123">
+        <button id="submitGameIdButton">Submit</button>
+    </div>
 
     <script>
-        // JavaScript to handle the button click
-        document.getElementById('playButton').addEventListener('click', function() {
-            alert('Welcome to Homelands! Let the game begin!');
-            // Later, you'll add code here to switch to the actual game screen
+        // Get references to our HTML elements
+        const homeScreen = document.getElementById('homeScreen');
+        const playButton = document.getElementById('playButton');
+
+        const gameModeSelection = document.getElementById('gameModeSelection');
+        const newGameButton = document.getElementById('newGameButton');
+        const joinGameButton = document.getElementById('joinGameButton');
+
+        const joinGameInput = document.getElementById('joinGameInput');
+        const gameIdInput = document.getElementById('gameIdInput');
+        const submitGameIdButton = document.getElementById('submitGameIdButton');
+
+        // --- Event Listeners ---
+
+        // 1. When the "Play" button is clicked on the home screen
+        playButton.addEventListener('click', function() {
+            homeScreen.style.display = 'none';           // Hide the home screen
+            gameModeSelection.style.display = 'flex';     // Show the game mode selection
+            console.log('Play button clicked. Showing game mode options.');
         });
 
-        console.log('Homelands home screen loaded.');
+        // 2. When the "New Game" button is clicked
+        newGameButton.addEventListener('click', function() {
+            alert('Starting a New Game! (This will be the game screen)');
+            // Later, you'll hide gameModeSelection and show the actual game UI
+            console.log('New Game button clicked.');
+        });
+
+        // 3. When the "Join Game" button is clicked
+        joinGameButton.addEventListener('click', function() {
+            gameModeSelection.style.display = 'none';     // Hide game mode selection
+            joinGameInput.style.display = 'flex';         // Show the join game input
+            console.log('Join Game button clicked. Asking for ID.');
+        });
+
+        // 4. When the "Submit" button for Game ID is clicked
+        submitGameIdButton.addEventListener('click', function() {
+            const enteredGameId = gameIdInput.value.trim(); // Get the text from the input, remove extra spaces
+
+            if (enteredGameId) {
+                alert('Attempting to join game with ID: ' + enteredGameId);
+                // Later, you'll send this ID to your Node.js backend
+                console.log('Submitted Game ID:', enteredGameId);
+
+                // For now, let's just go back to game mode selection, or clear input
+                // You'll replace this with actual game joining logic
+                joinGameInput.style.display = 'none';
+                gameModeSelection.style.display = 'flex'; // Go back for now
+                gameIdInput.value = ''; // Clear input field
+            } else {
+                alert('Please enter a Game ID.');
+            }
+        });
+
+        console.log('Homelands app loaded. Awaiting user input.');
     </script>
 </body>
 </html>
