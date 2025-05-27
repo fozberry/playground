@@ -1,7 +1,7 @@
 {
   "name": "my-simple-node-app",
   "version": "1.0.0",
-  "description": "A very basic Node.js app for deployment test.",
+  "description": "A very basic Node.js app for deployment test with Express.js.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.19.2" 
+    "express": "^4.19.2"
   }
 }
