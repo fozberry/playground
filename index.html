@@ -110,9 +110,9 @@
 
         // 2. When the "New Game" button is clicked
         newGameButton.addEventListener('click', function() {
-            alert('Starting a New Game! (This will be the game screen)');
-            // Later, you'll hide gameModeSelection and show the actual game UI
+            window.location.href = 'game.html'; // This tells the browser to go to game.html
             console.log('New Game button clicked.');
+            gameModeSelection.style.display = 'none';     // Hide game mode selection
         });
 
         // 3. When the "Join Game" button is clicked
