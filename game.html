@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homelands - Game Screen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #3a3a3a;
+            color: #eee;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: #e2a04a;
+            font-size: 3em;
+            margin-top: 20px;
+        }
+
+        #game-area {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+        }
+
+        #hand-display {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.4);
+            width: 90%;
+            border-top: 2px solid #555;
+            box-sizing: border-box;
+            min-height: 200px;
+        }
+
+        .card {
+            width: 150px;
+            height: 200px;
+            background-color: #fff;
+            border: 2px solid #666;
+            border-radius: 8px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            color: #333;
+            font-size: 0.8em;
+            text-align: center;
+            padding: 5px;
+            box-sizing: border-box;
+            transition: transform 0.1s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-name {
+            font-weight: bold;
+            font-size: 1.1em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 2px;
+        }
+
+        .card-type-class {
+            font-size: 0.7em;
+            margin-bottom: 5px;
+            color: #666;
+        }
+
+        .card-image-container {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ddd;
+            margin-bottom: 5px;
+            overflow: hidden;
+        }
+
+        .card-image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        .card-cost, .card-res {
+            position: absolute;
+            font-weight: bold;
+            font-size: 1.1em;
+            padding: 2px 5px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border-radius: 3px;
+        }
+
+        .card-cost {
+            bottom: 5px;
+            right: 5px;
+        }
+
+        .card-res {
+            bottom: 5px;
+            left: 5px;
+        }
+
+        #back-button {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            padding: 10px 15px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            z-index: 100;
+        }
+
+        #back-button:hover {
+            background-color: #d32f2f;
+        }
+
+    </style>
+</head>
+<body>
+    <a href="index.html" id="back-button">Back to Home</a>
+
+    <h1>Homelands Game</h1>
+
+    <div id="game-area">
+        <p>Main Game Area (Your hand is below)</p>
+    </div>
+
+    <div id="hand-display">
+        </div>
+
+    <script>
+        // Your actual card data, hardcoded as a JSON array
+        // Note: Google Drive image links often don't work directly.
+        // Using placeholder images for now to ensure display.
+        const startingHandData = [
+            {
+                "id": "shelter",
+                "name": "Shelter",
+                "type": "Residence",
+                "class": "None",
+                "res": 1,
+                "cost": 0,
+                "currency": 0,
+                "damage": 0,
+                "necessaryattributes": "",
+                "optionalattributes": "",
+                "desc": "",
+                "imageUrl": "https://via.placeholder.com/150/FF0000/FFFFFF?text=Shelter" // Placeholder image
+            },
+            {
+                "id": "thehomeland",
+                "name": "The Homeland",
+                "type": "Residence",
+                "class": "None",
+                "res": 5,
+                "cost": 10,
+                "currency": 0,
+                "damage": 0,
+                "necessaryattributes": "",
+                "optionalattributes": "",
+                "desc": "",
+                "imageUrl": "https://via.placeholder.com/150/0000FF/FFFFFF?text=Homeland" // Placeholder image
+            },
+            {
+                "id": "chapel",
+                "name": "Chapel",
+                "type": "Residence",
+                "class": "Angel",
+                "res": 1,
+                "cost": 2,
+                "currency": 0,
+                "damage": 0,
+                "necessaryattributes": "",
+                "optionalattributes": "",
+                "desc": "",
+                "imageUrl": "https://via.placeholder.com/150/00FF00/FFFFFF?text=Chapel" // Placeholder image
+            },
+            {
+                "id": "cathedral",
+                "name": "Cathedral",
+                "type": "Residence",
+                "class": "Angel",
+                "res": 2,
+                "cost": 4,
+                "currency": 0,
+                "damage": 0,
+                "necessaryattributes": "",
+                "optionalattributes": "",
+                "desc": "",
+                "imageUrl": "https://via.placeholder.com/150/FFFF00/000000?text=Cathedral" // Placeholder image
+            },
+            {
+                "id": "consecratedkingdom",
+                "name": "Consecrated Kingdom",
+                "type": "Residence",
+                "class": "Angel",
+                "res": 4,
+                "cost": 7,
+                "currency": 0,
+                "damage": 0,
+                "necessaryattributes": "",
+                "optionalattributes": "",
+                "desc": "",
+                "imageUrl": "https://via.placeholder.com/150/FF00FF/FFFFFF?text=Kingdom" // Placeholder image
+            }
+        ];
+
+        // Get the display area
+        const handDisplay = document.getElementById('hand-display');
+        handDisplay.innerHTML = ''; // Clear existing content
+
+        // Function to create a card element based on your specified layout
+        function createCardElement(cardData) {
+            const cardDiv = document.createElement('div');
+            cardDiv.classList.add('card');
+            cardDiv.dataset.cardId = cardData.id; // Store ID for future JS interactions
+
+            cardDiv.innerHTML = `
+                <div class="card-name"><span class="math-inline">\{cardData\.name\}</div\>
