@@ -76,6 +76,7 @@
         <h2>Choose Game Mode</h2>
         <button id="newGameButton">New Game</button>
         <button id="joinGameButton">Join Game</button>
+        <button id="backButton">Back</button>
     </div>
 
     <div id="joinGameInput" class="screen-section">
@@ -138,6 +139,12 @@
             } else {
                 alert('Please enter a Game ID.');
             }
+        });
+        // 5. When the "Back" button is clicked
+        backButton.addEventListener('click', function() {
+            gameModeSelection.style.display = 'none'; // Hide game mode selection
+            homeScreen.style.display = 'flex'; // Show the home screen
+            console.log('Back button clicked, going back to home screen');
         });
 
         console.log('Homelands app loaded. Awaiting user input.');
