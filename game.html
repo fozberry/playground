@@ -242,3 +242,19 @@
 
             cardDiv.innerHTML = `
                 <div class="card-name"><span class="math-inline">\{cardData\.name\}</div\>
+                <div class="card-type-class">{cardData.type} - cardData.class</div><divclass="card−image−container"><imgsrc="{cardData.imageUrl}" alt="cardData.nameImage"></div><divclass="card−cost">{cardData.cost}</div>
+<div class="card-res">${cardData.res}</div>
+`;
+return cardDiv;
+}
+
+        // Loop through the hand data and render cards
+        startingHandData.forEach(card => {
+            const cardElement = createCardElement(card);
+            handDisplay.appendChild(cardElement);
+        });
+
+        console.log('Game screen loaded with cards in hand.');
+    </script>
+</body>
+</html>
