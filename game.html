@@ -230,6 +230,22 @@
             }
         ];
 
+        // Game Zones for Player 1
+        let p1hand = [];
+        let p1deck = [];
+        let p1discard = [];
+        let p1res = []; // Residences/structures Player 1 has in play
+
+        // Game Zones for Player 2
+        let p2hand = [];
+        let p2deck = [];
+        let p2discard = [];
+        let p2res = []; // Residences/structures Player 2 has in play
+
+        // Variable for the card currently being played (e.g., on the 'stack' or being cast)
+        let play = null; // Will hold a single card object, or null if no card is in this state
+
+        
         // Get the display area
         const handDisplay = document.getElementById('hand-display');
         handDisplay.innerHTML = ''; // Clear existing content
