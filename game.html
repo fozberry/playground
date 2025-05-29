@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homelands - Game Screen</title>
+    <title>Homelands</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -144,7 +144,7 @@
 <body>
     <a href="index.html" id="back-button">Back to Home</a>
 
-    <h1>Homelands Game</h1>
+    <h1>Homelands</h1>
 
     <div id="game-area">
         <p>Main Game Area (Your hand is below)</p>
@@ -235,17 +235,24 @@
         handDisplay.innerHTML = ''; // Clear existing content
 
         // Function to create a card element based on your specified layout
-        function createCardElement(cardData) {
-            const cardDiv = document.createElement('div');
-            cardDiv.classList.add('card');
-            cardDiv.dataset.cardId = cardData.id; // Store ID for future JS interactions
+        // Function to create a card element
+function createCardElement(cardData) {
+    const cardDiv = document.createElement('div');
+    cardDiv.classList.add('card');
+    cardDiv.dataset.cardId = cardData.id;
 
-            cardDiv.innerHTML = `
-                <div class="card-name"><span class="math-inline">\{cardData\.name\}</div\>
-                <div class="card-type-class">{cardData.type} - cardData.class</div><divclass="card−image−container"><imgsrc="{cardData.imageUrl}" alt="cardData.nameImage"></div><divclass="card−cost">{cardData.cost}</div>
-<div class="card-res">${cardData.res}</div>
-`;
-return cardDiv;
+    // THIS IS THE CORRECTED HTML STRING.
+    // Notice the `${` and `}` around EVERY JavaScript variable.
+    cardDiv.innerHTML = `
+        <div class="card-name">${cardData.name}</div>
+        <div class="card-type-class">${cardData.type} - ${cardData.class}</div>
+        <div class="card-image-container">
+            <img src="${cardData.imageUrl}" alt="${cardData.name} Image">
+        </div>
+        <div class="card-cost">${cardData.cost}</div>
+        <div class="card-res">${cardData.res}</div>
+    `;
+    return cardDiv;
 }
 
         // Loop through the hand data and render cards
